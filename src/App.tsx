@@ -15,44 +15,68 @@ import fotoFacundo from './assets/equipo/facundo.jpg'
 import fotoMateo from './assets/equipo/mateo.jpg'
 import fotoEsteban from './assets/equipo/esteban.jpg'
 // Fotos de Proyectos ----------------
-import logoMGSoluciones from './assets/MGSoluciones.png'
-import logoMColors from './assets/MontevideoColors.png'
-import logoGuzzetti from './assets/Guzzetti.png'
+import logoMGSoluciones from './assets/proyectos/MGSoluciones.png'
+import logoMColors from './assets/proyectos/MontevideoColors.jpg'
+import logoGuzzetti from './assets/proyectos/Guzzetti.jpg'
 
 
 
-// Hook para animaciones de "fade-in" al hacer scroll
+/**
+ * Hook para animaciones de "fade-in" al hacer scroll.
+ * Devuelve una referencia (ref) para adjuntar al elemento que se desea animar,
+ * y un estado booleano (isInView) que se vuelve verdadero cuando el elemento
+ * entra en la vista del usuario.
+ *
+ * @returns {[React.RefObject<HTMLDivElement>, boolean]}
+ */
 const useFadeInOnScroll = (): [React.RefObject<HTMLDivElement>, boolean] => {
+  // `useRef` crea una referencia persistente que apunta a un elemento del DOM.
+  // Esta referencia no cambia entre renderizados del componente.
   const ref = useRef<HTMLDivElement>(null);
+  
+  // `useState` crea un estado local para el componente.
+  // Este estado se utiliza para rastrear si el elemento está en la vista o no.
   const [isInView, setIsInView] = useState(false);
 
+  // `useEffect` se usa para efectos secundarios, como la creación de un observador.
+  // Se ejecuta una sola vez después del renderizado inicial gracias al array de dependencias vacío `[]`.
   useEffect(() => {
+    // Captura la referencia actual del elemento para usarla en el observer.
     const currentRef = ref.current;
-    if (!currentRef) return;
+    if (!currentRef) return; // Si no hay referencia, sale de la función.
 
+    // Crea una instancia de IntersectionObserver.
+    // Esta API observa si un elemento (el "target") es visible dentro de otro elemento (el "root").
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // La función de callback se ejecuta cuando la visibilidad cambia.
+        // `entry.isIntersecting` es `true` si el elemento está visible en la pantalla.
         if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.unobserve(currentRef);
+          setIsInView(true);// Cambia el estado para activar la animación.
+          observer.unobserve(currentRef); // Detiene la observación para no ejecutar la animación múltiples veces.
         }
       },
       {
-        root: null, // El viewport es el elemento root
-        rootMargin: '0px',
-        threshold: 0.1, // El 10% del elemento debe ser visible
+        root: null, // El "root" es el viewport del navegador
+        rootMargin: '0px', // No se añade margen adicional al viewport.
+        threshold: 0.1, // El 10% del elemento debe ser visible para activar el observador.
       }
     );
-
+     // Inicia la observación del elemento.
     observer.observe(currentRef);
-
+    
+    // Función de limpieza que se ejecuta cuando el componente se desmonta.
+    // Esto es crucial para evitar fugas de memoria.
     return () => {
       if (currentRef) {
-        observer.unobserve(currentRef);
+        observer.unobserve(currentRef);  // Asegura que el observador se detenga.
       }
     };
-  }, []);
-
+  }, []); // Array de dependencias vacío, asegura que el efecto se ejecute solo una vez.
+  
+  // El hook devuelve la referencia y el estado de visibilidad.
+  // Estos valores se usan en el componente principal para conectar el elemento
+  // y aplicar la clase de animación.
   return [ref as React.RefObject<HTMLDivElement>, isInView];
 };
 
@@ -185,7 +209,7 @@ const Hero: React.FC<HeroProps> = ({ heroBackground }) => (
 // ---- Seccion Nuestro Equipo ----
 
 const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
-  const [nosotrosRef, nosotrosInView] = useFadeInOnScroll();
+  const [nosotrosRef, nosotrosInView] = useFadeInOnScroll(); // Referencia y estado de visibilidad para la sección "Nosotros"
   return (
     <section id="nosotros" className="py-24 bg-black">
       <div ref={nosotrosRef} className={`container mx-auto px-4 text-center transition-all duration-1000 transform ${nosotrosInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
@@ -225,7 +249,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
 
 // ---- Componente ProjectsSection (Proyectos)  ------------
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
-  const [proyectosRef, proyectosInView] = useFadeInOnScroll();
+  const [proyectosRef, proyectosInView] = useFadeInOnScroll(); // Referencia y estado de visibilidad para la sección "Proyectos"
   // Se duplica el array de proyectos para crear un efecto de carrusel infinito.
   const allProjects = [...projects, ...projects];
 
