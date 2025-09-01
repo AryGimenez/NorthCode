@@ -126,6 +126,10 @@ nvm use --lts        # Activa esa versión en tu sesión actual
 <<npm install -D tailwindcss@3 postcss autoprefixer>>
 ```
 
+### Instalar TailwindClass --ChatGPT Coregir 
+
+npm install -D tailwindcss postcss autoprefixer
+
 ### 2. Inicializar Archivos de Configuración
 
 ```bash
@@ -223,3 +227,42 @@ Si ves los estilos de Tailwind aplicados y los iconos funcionando, ¡todo está 
     ├── index.css
     └── components/
 ```
+
+
+### Estructura Sugerida proyecto para separar por componentes 
+
+/tu-proyecto-web
+├── /public
+│   ├── index.html
+│   └── favicon.ico
+│
+├── /src
+│   ├── /assets
+│   │   ├── /backgrounds
+│   │   ├── /equipo
+│   │   ├── /proyectos
+│   │   └── logo.png
+│   │
+│   ├── /components
+│   │   ├── header.jsx
+│   │   ├── Hero.jsx
+│   │   ├── TeamSection.jsx
+│   │   ├── ProjectsSection.jsx
+│   │   ├── ContactSection.jsx
+│   │   ├── Footer.jsx
+│   │   └── ProjectCard.jsx (si decides separar la tarjeta individual)
+│   │
+│   ├── /hooks
+│   │   └── useFadeInOnScroll.js
+│   │
+│   ├── /data
+│   │   ├── teamMembers.js
+│   │   ├── projects.js
+│   │   └── index.js (para exportar todo)
+│   │
+│   ├── App.jsx
+│   └── index.jsx
+│
+├── tailwind.config.js
+├── package.json
+└── README.md

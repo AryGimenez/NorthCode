@@ -1,3 +1,5 @@
+// App.tsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Linkedin, MessageSquareText, Phone, Github, Mail } from 'lucide-react';
 
@@ -81,35 +83,148 @@ const useFadeInOnScroll = (): [React.RefObject<HTMLDivElement>, boolean] => {
 };
 
 
-// --- Datos del equipo ---
 
-const teamMembers = [
-  { name: 'Facundo', role: 'Diseñador UX/UI', linkedin: 'https://www.linkedin.com/in/facundo-quir%C3%B3-salda%C3%B1a-bustamante-1225b5250/', whatsapp: 'https://wa.me/+59891886824', github: 'https://github.com/thejokor16', mail: 'mailto:facugoqui@gmail.com', img: fotoFacundo },
-  { name: 'Esteban', role: 'Backend Developer', linkedin: 'https://www.linkedin.com/in/esteban-silva-598110182/', whatsapp: 'https://wa.me/+59899456893', github: 'https://github.com/Megamonster2YT', mail: 'mailto:silvaesteban309@gmail.com', img: fotoEsteban },
-  { name: 'Ary', role: 'Infraestructura & CEO', linkedin: 'https://www.linkedin.com/in/ary-gimenez-2a42b5179/', whatsapp: 'https://wa.me/+59898559058', github: 'https://github.com/AryGimenez', mail: 'mailto:argi.prog@gmail.com', img: fotoAry },
-  { name: 'Mateo', role: 'Ventas, Marketing & Frontend Developer', linkedin: 'https://www.linkedin.com/in/mate-bds-46448a363/', whatsapp: 'https://wa.me/+59897840421', github: 'https://github.com/MateoBas005', mail: 'mailto:matebsbastosdossantos@gmail.com', img: fotoMateo },
-];
 
 // --- Datos de los proyectos ---
 
 const projects = [
-  { title: 'MG Soluciones IT', description: 'Creamos una plataforma web profesional para MG Soluciones IT, destacando sus servicios clave de soporte técnico, infraestructura IT y respaldos en la nube. Un diseño moderno y funcional que conecta a los clientes con soluciones tecnológicas eficientes.', img: logoMGSoluciones, url: 'https://mgsolucionesit.com.uy/' },
-  { title: 'Montevideo Colors', description: 'Este proyecto es el sitio web para Montevideo Colors, una residencia estudiantil en el centro de Montevideo. La web fue diseñada para destacar su ubicación estratégica y una amplia gama de servicios esenciales para estudiantes, como WiFi, Netflix, limpieza diaria y seguridad las 24 horas.', img: logoMColors, url: 'https://www.montevideocolors.com.uy/' },
-  { title: 'Guzzetti - Arámbula Clinica Odontologica', description: 'Este proyecto es el sitio web de una clínica odontológica. La página está diseñada para transmitir confianza y profesionalismo, destacando un servicio dental integral que busca tanto la salud bucal como la armonía estética. Se enfatiza el compromiso con la excelencia y la experiencia del paciente para crear un espacio confiable y moderno.', img: logoGuzzetti, url: 'https://guzzettiarambulaodontologos.com/' },
+  {  //MG Soluciones IT
+    id: 1, // <- Identificador único
+    title: 'MG Soluciones IT', 
+    description: 'Creamos una plataforma web profesional para MG Soluciones IT, destacando sus servicios clave de soporte técnico, infraestructura IT y respaldos en la nube. Un diseño moderno y funcional que conecta a los clientes con soluciones tecnológicas eficientes.', 
+    img: logoMGSoluciones, 
+    url: 'https://mgsolucionesit.com.uy/' 
+  },
+  { // Montevideo Colors
+    id: 2,
+    title: 'Montevideo Colors', 
+    description: 'Este proyecto es el sitio web para Montevideo Colors, una residencia estudiantil en el centro de Montevideo. La web fue diseñada para destacar su ubicación estratégica y una amplia gama de servicios esenciales para estudiantes, como WiFi, Netflix, limpieza diaria y seguridad las 24 horas.', 
+    img: logoMColors, 
+    url: 'https://www.montevideocolors.com.uy/' 
+  },
+  { // Guzzetti - Arámbula Clinica Odontologica
+    id: 3,
+    title: 'Guzzetti - Arámbula Clinica Odontologica', 
+    description: 'Este proyecto es el sitio web de una clínica odontológica. La página está diseñada para transmitir confianza y profesionalismo, destacando un servicio dental integral que busca tanto la salud bucal como la armonía estética. Se enfatiza el compromiso con la excelencia y la experiencia del paciente para crear un espacio confiable y moderno.', 
+    img: logoGuzzetti, 
+    url: 'https://guzzettiarambulaodontologos.com/' 
+  },
 ];
 
-// --- Interfaces de props ---
+// --- Seccion Equipo ----
 
-// Es útil para que TypeScript entienda qué tipo de props espera cada componente.
-interface HeaderProps {
-  toggleMobileMenu: () => void; // Una función que no recibe argumentos y no retorna nada.
-  isMobileMenuOpen: boolean;    // Un valor booleano (true/false) que indica si el menú móvil está abierto.
-  logo: string;                 // Una cadena de texto que representa la URL de la imagen del logo.
-}
+  // Datos del equipo
 
-interface HeroProps {
-  heroBackground: string;
-}
+  const teamMembers = [
+    { // Datos Facundo
+      id: 1, // Identificador único
+      name: 'Facundo',
+      role: 'Diseñador UX/UI',
+      img: fotoFacundo,
+      social: {
+        linkedin: 'https://www.linkedin.com/in/facundo-quir%C3%B3-salda%C3%B1a-bustamante-1225b5250/',
+        whatsapp: 'https://wa.me/+59891886824',
+        github: 'https://github.com/thejokor16',
+        mail: 'mailto:facugoqui@gmail.com'
+      }
+    },
+    { // Datos Esteban
+      id: 2,
+      name: 'Esteban',
+      role: 'Backend Developer',
+      img: fotoEsteban,
+      social: {
+        linkedin: 'https://www.linkedin.com/in/esteban-silva-598110182/',
+        whatsapp: 'https://wa.me/+59899456893',
+        github: 'https://github.com/Megamonster2YT',
+        mail: 'mailto:silvaesteban309@gmail.com'
+      }
+    },
+    { // Datos Ary
+      id: 3,
+      name: 'Ary',
+      role: 'Infraestructura & CEO',
+      img: fotoAry,
+      social: {
+        linkedin: 'https://www.linkedin.com/in/ary-gimenez-2a42b5179/',
+        whatsapp: 'https://wa.me/+59898559058',
+        github: 'https://github.com/AryGimenez',
+        mail: 'mailto:argi.prog@gmail.com'
+      }
+    },
+    {
+      id: 4,
+      name: 'Mateo',
+      role: 'Ventas, Marketing & Frontend Developer',
+      img: fotoMateo,
+      social: {
+        linkedin: 'https://www.linkedin.com/in/mate-bds-46448a363/',
+        whatsapp: 'https://wa.me/+59897840421',
+        github: 'https://github.com/MateoBas005',
+        mail: 'mailto:matebsbastosdossantos@gmail.com'
+      }
+    }
+  ];
+  
+  // Es útil para que TypeScript entienda qué tipo de props espera cada componente.
+  interface HeaderProps {
+    toggleMobileMenu: () => void; // Una función que no recibe argumentos y no retorna nada.
+    isMobileMenuOpen: boolean;    // Un valor booleano (true/false) que indica si el menú móvil está abierto.
+    logo: string;                 // Una cadena de texto que representa la URL de la imagen del logo.
+  }
+
+  // Componente HTML Donde mustra los miembros del equipo Header (Navegación) --- 
+
+
+
+
+
+
+  // --- Componente Header (Navegación) ---
+
+  const Header: React.FC<HeaderProps> = ({ toggleMobileMenu, isMobileMenuOpen, logo }) => (
+    <header className="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          {/* Logo */}
+          <a href="#" className="flex items-center text-white text-xl font-bold space-x-2">
+            <img src={logo} alt="Logo de NorthCode" className="w-10 h-10" /> 
+            <span>NorthCode</span>
+          </a>
+       
+        </div>
+
+        {/* Enlaces de navegación */}
+        <div className="hidden md:flex space-x-6 text-gray-300 font-semibold">
+          <a href="#inicio" className="hover:text-red-600 transition-colors">Inicio</a>
+          <a href="#nosotros" className="hover:text-red-600 transition-colors">Nosotros</a>
+          <a href="#proyectos" className="hover:text-red-600 transition-colors">Proyectos</a>
+          <a href="#contacto" className="hover:text-red-600 transition-colors">Contacto</a>
+        </div>
+        <button
+        onClick={toggleMobileMenu} 
+        className="md:hidden text-white focus:outline-none"
+        title="Abrir menú de navegación"
+        arial-label="Abrir menú de navegación"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+      </nav>
+      <div className={`md:hidden bg-gray-900 text-white text-center py-4 space-y-4 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+        <a href="#inicio" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Inicio</a>
+        <a href="#nosotros" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Nosotros</a>
+        <a href="#proyectos" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Proyectos</a>
+        <a href="#contacto" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Contacto</a>
+      </div>
+    </header>
+  );
+
+
+
+
+
+
+
 
 // Define la estructura de un solo miembro del equipo
 interface TeamMember {
@@ -143,65 +258,41 @@ interface ContactSelectPaper {
 }
 
 
-// --- Componente Donde mustra los miembros del equipo Header (Navegación) --- 
-const Header: React.FC<HeaderProps> = ({ toggleMobileMenu, isMobileMenuOpen, logo }) => (
-  <header className="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg">
-    <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div className="flex items-center space-x-2">
-        <a href="#" className="flex items-center text-white text-xl font-bold space-x-2">
-          <img src={logo} alt="Logo de NorthCode" className="w-10 h-10" /> 
-          <span>NorthCode</span>
+
+// --- Componente Hero Parte Principal de la web ---
+
+  // Props para el componente Hero
+  interface HeroProps {
+    heroBackground: string;
+  }
+
+  // Primer letrero de la pagina donde esta
+  const Hero: React.FC<HeroProps> = ({ heroBackground }) => (
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center text-center py-24 bg-gray-950 overflow-hidden">
+
+     {/* div De Fondo */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+        }}
+      ></div>
+
+
+      {/* Oscurese el fondo !ChatGPT  Podria acerlo de otra manera ??*/}
+      <div className="absolute inset-0 z-10 bg-black/70"></div>
+
+
+      <div className="relative z-20 max-w-4xl mx-auto px-4 ">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-10">
+          <span className="text-red-600">Transformamos ideas</span><br /> en experiencias digitales.
+        </h1>
+        <a href="#contacto" className="px-8 py-3 rounded-full font-bold transition-all duration-300 bg-red-600 text-white shadow-lg shadow-red-500/50 hover:bg-red-700">
+          Comienza tu proyecto
         </a>
       </div>
-      <div className="hidden md:flex space-x-6 text-gray-300 font-semibold">
-        <a href="#inicio" className="hover:text-red-600 transition-colors">Inicio</a>
-        <a href="#nosotros" className="hover:text-red-600 transition-colors">Nosotros</a>
-        <a href="#proyectos" className="hover:text-red-600 transition-colors">Proyectos</a>
-        <a href="#contacto" className="hover:text-red-600 transition-colors">Contacto</a>
-      </div>
-      <button
-       onClick={toggleMobileMenu} 
-       className="md:hidden text-white focus:outline-none"
-       title="Abrir menú de navegación"
-       arial-label="Abrir menú de navegación"
-      >
-        <Menu className="w-6 h-6" />
-      </button>
-    </nav>
-    <div className={`md:hidden bg-gray-900 text-white text-center py-4 space-y-4 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-      <a href="#inicio" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Inicio</a>
-      <a href="#nosotros" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Nosotros</a>
-      <a href="#proyectos" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Proyectos</a>
-      <a href="#contacto" onClick={toggleMobileMenu} className="block py-2 hover:bg-gray-800 transition-colors">Contacto</a>
-    </div>
-  </header>
-);
-
-
-// --- Componente Hero (Portada) ---
-// Primer letrero de la pagina donde esta
-const Hero: React.FC<HeroProps> = ({ heroBackground }) => (
-  <section id="inicio" className="relative min-h-screen flex items-center justify-center text-center py-24 bg-gray-950 overflow-hidden">
-    <div
-      className="absolute inset-0 z-0 bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${heroBackground})`,
-      }}
-    ></div>
-
-
-
-    <div className="absolute inset-0 z-10 bg-black/70"></div>
-    <div className="relative z-20 max-w-4xl mx-auto px-4 ">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-10">
-        <span className="text-red-600">Transformamos ideas</span><br /> en experiencias digitales.
-      </h1>
-      <a href="#contacto" className="px-8 py-3 rounded-full font-bold transition-all duration-300 bg-red-600 text-white shadow-lg shadow-red-500/50 hover:bg-red-700">
-        Comienza tu proyecto
-      </a>
-    </div>
-  </section>
-);
+    </section>
+  );
 
 
 
@@ -245,6 +336,12 @@ const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
 };
 
 
+
+// -ChatGPT Este carrucel no me suta se mueve solo y me gustaria que si se moviera
+// pero quiero que si quiero poder deslisar con el dedo o arrastrarlo algo asi 
+// ademas se esta rrompiendo se vueve bien pareo de a rrato como que se atrasa es 
+// desir que no tiene como un diley y no es continuo ademas aparese al borde de la 
+// pagina lo cual no es correcto , deberia capas tener un borde algo por el estilo
 
 
 // ---- Componente ProjectsSection (Proyectos)  ------------

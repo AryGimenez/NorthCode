@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        'nc-red': '#E53E3E', // Un rojo personalizado para el logo y los hover.
+        'nc-dark': '#1A202C', // Un color oscuro personalizado.
+    },
+  },
+    fontFamily: {
+    sans: ['Inter', 'sans-serif'],
   },
   plugins: [],
 }
