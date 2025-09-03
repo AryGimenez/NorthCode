@@ -9,12 +9,18 @@ import { Menu } from 'lucide-react';
  * @property {string} logo - La URL del logo de la empresa.
  */
 
+interface HeaderProps {
+  toggleMobileMenu: () => void;
+  isMobileMenuOpen: boolean;
+  logo: string;
+}
+
 /**
  * Componente que renderiza el encabezado y la barra de navegación de la página.
  * Incluye la navegación principal para pantallas de escritorio y un menú colapsable para móviles.
  * @param {HeaderProps} props - Las propiedades pasadas al componente.
  */
-const Header = ({ toggleMobileMenu, isMobileMenuOpen, logo }) => {
+const Header: React.FC<HeaderProps> = ({ toggleMobileMenu, isMobileMenuOpen, logo }) => {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
