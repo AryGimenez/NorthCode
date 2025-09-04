@@ -1,8 +1,8 @@
 // App.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Linkedin, MessageSquareText, Phone, Github, Mail } from 'lucide-react';
-
+import { Menu, Linkedin, Phone, Github, Mail } from 'lucide-react';
+// MessageSquareText agregar cuando metamos el mensajer de la emprea  Watsap
 
 
 
@@ -111,6 +111,25 @@ const projects = [
   },
 ];
 
+// --- Sección Visión ---
+const VisionSection: React.FC = () => {
+  return (
+    <section id="vision" className="py-20 bg-gray-900 text-white">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-4xl font-bold mb-4">Nuestra visión</h2>
+        <p className="max-w-3xl mx-auto text-lg mb-8 leading-relaxed">
+          Queremos convertirnos en un referente tecnológico en la frontera Uruguay–Brasil,
+          generando soluciones digitales innovadoras y creando oportunidades de empleo para jóvenes.
+        </p>
+        <p className="max-w-3xl mx-auto text-lg italic leading-relaxed">
+          Soñamos con un futuro donde Artigas sea reconocido como un semillero de talento IT
+          que exporta conocimiento y creatividad al mundo.
+        </p>
+      </div>
+    </section>
+  );
+};
+
 // --- Seccion Equipo ----
 
   // Datos del equipo
@@ -121,50 +140,108 @@ const projects = [
       name: 'Facundo',
       role: 'Diseñador UX/UI',
       img: fotoFacundo,
-      social: {
-        linkedin: 'https://www.linkedin.com/in/facundo-quir%C3%B3-salda%C3%B1a-bustamante-1225b5250/',
-        whatsapp: 'https://wa.me/+59891886824',
-        github: 'https://github.com/thejokor16',
-        mail: 'mailto:facugoqui@gmail.com'
-      }
+
+      linkedin: 'https://www.linkedin.com/in/facundo-quir%C3%B3-salda%C3%B1a-bustamante-1225b5250/',
+      github: 'https://github.com/thejokor16',
+      mail: 'mailto:facugoqui@gmail.com'
+
     },
     { // Datos Esteban
       id: 2,
       name: 'Esteban',
       role: 'Backend Developer',
       img: fotoEsteban,
-      social: {
-        linkedin: 'https://www.linkedin.com/in/esteban-silva-598110182/',
-        whatsapp: 'https://wa.me/+59899456893',
-        github: 'https://github.com/Megamonster2YT',
-        mail: 'mailto:silvaesteban309@gmail.com'
-      }
+
+      linkedin: 'https://www.linkedin.com/in/esteban-silva-598110182/',
+      github: 'https://github.com/Megamonster2YT',
+      mail: 'mailto:silvaesteban309@gmail.com'
+
     },
     { // Datos Ary
       id: 3,
       name: 'Ary',
       role: 'Infraestructura & CEO',
       img: fotoAry,
-      social: {
-        linkedin: 'https://www.linkedin.com/in/ary-gimenez-2a42b5179/',
-        whatsapp: 'https://wa.me/+59898559058',
-        github: 'https://github.com/AryGimenez',
-        mail: 'mailto:argi.prog@gmail.com'
-      }
+
+      linkedin: 'https://www.linkedin.com/in/ary-gimenez-2a42b5179/',  
+      github: 'https://github.com/AryGimenez',
+      mail: 'mailto:argi.prog@gmail.com'
+
     },
     {
       id: 4,
       name: 'Mateo',
       role: 'Ventas, Marketing & Frontend Developer',
       img: fotoMateo,
-      social: {
-        linkedin: 'https://www.linkedin.com/in/mate-bds-46448a363/',
-        whatsapp: 'https://wa.me/+59897840421',
-        github: 'https://github.com/MateoBas005',
-        mail: 'mailto:matebsbastosdossantos@gmail.com'
-      }
+
+      linkedin: 'https://www.linkedin.com/in/mate-bds-46448a363/',
+      github: 'https://github.com/MateoBas005',
+      mail: 'mailto:matebsbastosdossantos@gmail.com'
+
     }
   ];
+
+
+// Define la estructura de un solo miembro del equipo
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  img: string;
+
+  linkedin: string;
+  github: string;
+  mail: string;
+}
+
+
+// Props para el componente TeamSection
+interface TeamSectionProps {
+  teamMembers: TeamMember[]; // <- ¡Este es el cambio clave!
+};
+
+// Componente para la sección del equipo 
+// ChatGPt -- Esto hay que separarlo en las tarjeta y la seccion contenedora de las mismas 
+
+const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
+  const [nosotrosRef, nosotrosInView] = useFadeInOnScroll(); // Referencia y estado de visibilidad para la sección "Nosotros"
+  return (
+    <section id="nosotros" className="py-24 bg-black">
+      <div ref={nosotrosRef} className={`container mx-auto px-4 text-center transition-all duration-1000 transform ${nosotrosInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">Conoce a nuestro equipo</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Mapa de miembros del equipo - Crea los diferentes DIV con los datos del equipo */}
+          {teamMembers.map((member, index) => (
+            <div key={index} className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center transition-all duration-300 hover:scale-105 hover:border-red-600">
+              <img src={member.img} alt={`Foto de ${member.name}`} className="w-24 h-24 mx-auto rounded-full mb-4 object-cover border-4 border-red-600" />
+              <h3 className="text-xl font-bold text-white">{member.name}</h3>
+              <p className="text-red-500 font-medium">{member.role}</p>
+              <div className="flex justify-center space-x-4 mt-4">
+                <a href={member.linkedin} className="transition-transform transform hover:scale-125 duration-200" aria-label={`LinkedIn de ${member.name}`}>
+                  <Linkedin className="w-6 h-6 text-gray-400 hover:text-red-600" />
+                </a>
+                <a href={member.github} className="transition-transform transform hover:scale-125 duration-200" aria-label={`GitHub de ${member.name}`}>
+                  <Github className="w-6 h-6 text-gray-400 hover:text-red-600" />
+                </a>
+                <a href={member.mail} className="transition-transform transform hover:scale-125 duration-200" aria-label={`Email de ${member.name}`}>
+                  <Mail className="w-6 h-6 text-gray-400 hover:text-red-600" />
+                </a>
+                {/* <a href={member.whatsapp} className="transition-transform transform hover:scale-125 duration-200" aria-label={`WhatsApp de ${member.name}`}>
+                  <MessageSquareText className="w-6 h-6 text-gray-400 hover:text-red-600" />
+                </a> */}
+              </div>
+            </div>
+          ))}
+          
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+ // --- Componente Header (Navegación) ---
   
   // Es útil para que TypeScript entienda qué tipo de props espera cada componente.
   interface HeaderProps {
@@ -173,15 +250,8 @@ const projects = [
     logo: string;                 // Una cadena de texto que representa la URL de la imagen del logo.
   }
 
-  // Componente HTML Donde mustra los miembros del equipo Header (Navegación) --- 
 
-
-
-
-
-
-  // --- Componente Header (Navegación) ---
-
+  // Componente para el encabezado (Header)
   const Header: React.FC<HeaderProps> = ({ toggleMobileMenu, isMobileMenuOpen, logo }) => (
     <header className="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -219,28 +289,60 @@ const projects = [
     </header>
   );
 
+// ------- Seccion Valor Social -------
 
+/**
+ * Componente que muestra el impacto social de la empresa, diseñado con una paleta de colores oscuros.
+ * @component
+ * @returns {JSX.Element} El elemento React de la sección de impacto social.
+ */
+const SocialImpactSection: React.FC = () => {
+  return (
+    <section id="social-impact" className="py-20 px-4 bg-gray-900 text-white">
+      <div className="container mx-auto">
+        <div className="md:flex md:space-x-12 items-center">
+          {/* Columna de texto */}
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <h2 className="text-4xl font-bold mb-4 text-gray-100">
+              Impulsando a la juventud de Artigas hacia el mundo IT
+            </h2>
+            <p className="text-lg mb-4">
+              NorthCode no es solo una empresa de tecnología, también es un proyecto social.
+              Nuestro objetivo es formar y dar oportunidades a jóvenes de Artigas en el mundo del
+              desarrollo y la innovación digital.
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-lg mb-6">
+              <li>Entrenamos talento local en programación y habilidades digitales.</li>
+              <li>Creamos un entorno de aprendizaje donde la juventud puede crecer y trabajar en proyectos reales.</li>
+              <li>Conectamos Artigas con Brasil y el mundo, abriendo puertas en un mercado que valora el talento IT.</li>
+            </ul>
+            <p className="text-lg font-semibold">
+              Creemos que la tecnología puede ser el motor para transformar nuestra comunidad, y cada proyecto
+              que desarrollamos nos ayuda a acercarnos más a esa visión.
+            </p>
+            <p className="text-lg font-bold mt-4">
+              👉 Al elegir NorthCode, no solo contratás un servicio: también apoyás el futuro de jóvenes artiguenses.
+            </p>
+          </div>
 
-
-
-
-
-
-// Define la estructura de un solo miembro del equipo
-interface TeamMember {
-  name: string;
-  role: string;
-  linkedin: string;
-  whatsapp: string;
-  github: string;
-  img: string;
-  mail: string;
-}
-
-interface TeamSectionProps {
-  teamMembers: TeamMember[]; // <- ¡Este es el cambio clave!
+          {/* Columna de imagen (placeholder) */}
+          <div className="md:w-1/2">
+            {/* Espacio para la foto de los jóvenes trabajando */}
+            <div className="w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-gray-800 flex items-center justify-center text-gray-400">
+              <p className="p-4 text-center">
+                Aquí va una foto de jóvenes uruguayos trabajando en el proyecto.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
+// ---- Sección Proyectos ----
+
+// Define la estructura de un solo proyecto
 interface ProjectsSectionMember {
     title: string;
     description: string;
@@ -248,20 +350,16 @@ interface ProjectsSectionMember {
     url: string;
 }
 
+// Props para el componente ProjectsSection
 interface ProjectsSectionProps {
   projects: ProjectsSectionMember[];
 }
 
 
-interface ContactSelectPaper {
-  whatsappUrl: string;
-}
+// ChatGPt -- Esto creo que no va 
 
 
 
-// --- Componente Hero Parte Principal de la web ---
-
-  // Props para el componente Hero
   interface HeroProps {
     heroBackground: string;
   }
@@ -293,49 +391,6 @@ interface ContactSelectPaper {
       </div>
     </section>
   );
-
-
-
-
-// ---- Seccion Nuestro Equipo ----
-
-const TeamSection: React.FC<TeamSectionProps> = ({ teamMembers }) => {
-  const [nosotrosRef, nosotrosInView] = useFadeInOnScroll(); // Referencia y estado de visibilidad para la sección "Nosotros"
-  return (
-    <section id="nosotros" className="py-24 bg-black">
-      <div ref={nosotrosRef} className={`container mx-auto px-4 text-center transition-all duration-1000 transform ${nosotrosInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">Conoce a nuestro equipo</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Mapa de miembros del equipo - Crea los diferentes DIV con los datos del equipo */}
-          {teamMembers.map((member, index) => (
-            <div key={index} className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center transition-all duration-300 hover:scale-105 hover:border-red-600">
-              <img src={member.img} alt={`Foto de ${member.name}`} className="w-24 h-24 mx-auto rounded-full mb-4 object-cover border-4 border-red-600" />
-              <h3 className="text-xl font-bold text-white">{member.name}</h3>
-              <p className="text-red-500 font-medium">{member.role}</p>
-              <div className="flex justify-center space-x-4 mt-4">
-                <a href={member.linkedin} className="transition-transform transform hover:scale-125 duration-200" aria-label={`LinkedIn de ${member.name}`}>
-                  <Linkedin className="w-6 h-6 text-gray-400 hover:text-red-600" />
-                </a>
-                <a href={member.github} className="transition-transform transform hover:scale-125 duration-200" aria-label={`GitHub de ${member.name}`}>
-                  <Github className="w-6 h-6 text-gray-400 hover:text-red-600" />
-                </a>
-                <a href={member.mail} className="transition-transform transform hover:scale-125 duration-200" aria-label={`Email de ${member.name}`}>
-                  <Mail className="w-6 h-6 text-gray-400 hover:text-red-600" />
-                </a>
-                <a href={member.whatsapp} className="transition-transform transform hover:scale-125 duration-200" aria-label={`WhatsApp de ${member.name}`}>
-                  <MessageSquareText className="w-6 h-6 text-gray-400 hover:text-red-600" />
-                </a>
-              </div>
-            </div>
-          ))}
-          
-        </div>
-      </div>
-    </section>
-  );
-};
-
-
 
 // -ChatGPT Este carrucel no me suta se mueve solo y me gustaria que si se moviera
 // pero quiero que si quiero poder deslisar con el dedo o arrastrarlo algo asi 
@@ -404,6 +459,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
 // --- Componente ContactSection (Contacto) ---
 
 
+// Props para el componente ContactSelect
+interface ContactSelectPaper {
+  whatsappUrl: string;
+}
 
 const ContactSection: React.FC<ContactSelectPaper> = ({ whatsappUrl }) => {
   const [contactoRef, contactoInView] = useFadeInOnScroll();
@@ -505,12 +564,28 @@ const App = () => {
 
   return (
     <div className="bg-black text-white font-inter">
+      {/* Seccion Header Barra superior  */}
       <Header toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} logo={logo} />
       <main>
+        {/* Seccion Hero Parte principal de la web */}
         <Hero heroBackground={heroBackground} />
+        
+        {/* Seccion Vision */}  
+        <VisionSection />
+
+        {/* Seccion Impacto Social */}
+        <SocialImpactSection />
+
+        {/* Seccion Equipo */}
         <TeamSection teamMembers={teamMembers} />
+
+        {/* Seccion Proyectos */}
         <ProjectsSection projects={projects} />
+        
+        {/* Seccion Contacto */}
         <ContactSection whatsappUrl={whatsappUrl} />
+        
+
       </main>
       <Footer />
     </div>

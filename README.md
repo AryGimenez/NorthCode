@@ -215,7 +215,7 @@ Si ves los estilos de Tailwind aplicados y los iconos funcionando, ¡todo está 
 ```bash
 .
 ├── index.html
-├── package.json
+├── package.json   /* && copy CNAME dist Agrego esto cuadno el dns funcione */
 ├── postcss.config.js
 ├── tailwind.config.js
 ├── tsconfig.app.json       
