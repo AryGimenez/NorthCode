@@ -1,3 +1,5 @@
+// components/comp_heder.spx
+
 import React from 'react';
 import { Menu } from 'lucide-react';
 
